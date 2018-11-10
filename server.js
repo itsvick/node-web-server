@@ -1,15 +1,19 @@
 const express = require('express');
 const hbs = require('hbs');
 
-const port  = process.env.PORT || 3000;
-let app =  express();
+const port = process.env.PORT || 3000;
+let app = express();
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 app.get('/', (request, response) => {
-    response.send({
+    /* response.send({
         name: 'Express',
         cities: ['Mumbai', 'Pune']
+    }); */
+    response.render('home.hbs', {
+        pageTitle: 'Home',
+        userName: 'Vivek'
     });
 });
 
@@ -21,10 +25,13 @@ app.get('/about', (req, res) => {
     });
 });
 app.get('/home', (req, res) => {
-    res.render('home.hbs',{
+    res.render('home.hbs', {
         pageTitle: 'Home',
         userName: 'Vivek'
     });
+});
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs');
 });
 app.get('/bad', (req, res) => {
     res.send({
